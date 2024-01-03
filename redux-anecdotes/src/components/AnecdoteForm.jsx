@@ -1,11 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { anecdoteAdded } from '../reducers/anecdoteReducer';
+import { showNotification } from '../notification';
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
 
   const add = (anecdote) => {
     dispatch(anecdoteAdded(anecdote));
+    showNotification(`you added '${anecdote}'`);
   };
 
   const handleSubmit = (event) => {
