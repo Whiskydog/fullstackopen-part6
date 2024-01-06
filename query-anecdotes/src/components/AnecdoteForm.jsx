@@ -14,9 +14,14 @@ const AnecdoteForm = () => {
     triggerNotification(`you've added '${anecdote.content}'`, dispatch, 5);
   };
 
+  const onMutationError = (error) => {
+    triggerNotification(error.response.data.error, dispatch, 5);
+  };
+
   const newAnecdoteMutation = useMutation({
     mutationFn: createAnecdote,
     onSuccess: onMutationSuccess,
+    onError: onMutationError,
   });
 
   const onCreate = (event) => {
