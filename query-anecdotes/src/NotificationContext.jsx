@@ -41,4 +41,20 @@ export const useNotificationValue = () => useContext(NotificationContext)[0];
 
 export const useNotificationDispatch = () => useContext(NotificationContext)[1];
 
+let timeoutId;
+export const useNotify = (seconds) => {
+  const dispatch = useNotificationDispatch();
+  return (payload) => {
+    if (timeoutId) clearTimeout(timeoutId);
+    dispatch({
+      type: 'notification/show',
+      payload,
+    });
+    timeoutId = setTimeout(
+      () => dispatch({ type: 'notification/hide' }),
+      seconds * 1000
+    );
+  };
+};
+
 export default NotificationContext;
